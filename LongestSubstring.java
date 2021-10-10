@@ -24,7 +24,7 @@ class LongestSubstring {
                 sb.append(Character.toString(s.charAt(i)));
             }
             if(i - j + 1 > maxLength){
-                maxLength = i - j + 1;//should this have +1?
+                maxLength = i - j + 1;
             }
         }
         return(maxLength);
