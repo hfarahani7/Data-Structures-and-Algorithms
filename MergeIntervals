@@ -1,0 +1,31 @@
+import java.util.Stack;
+import java.util.Arrays;
+
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        java.util.Arrays.sort(intervals, java.util.Comparator.comparingInt(a -> a[0]));
+        Stack<Integer> intervalStack = new Stack<Integer>();
+        int stackLength = 0;
+        int temp;
+        
+        for(int i = 0; i < intervals.length; i++){
+            if(intervalStack.empty() || intervals[i][0] > intervalStack.peek()){
+                intervalStack.push(intervals[i][0]);
+                intervalStack.push(intervals[i][1]);
+                stackLength++;
+            }else{
+                temp = intervalStack.pop();
+                intervalStack.push(Math.max(temp, intervals[i][1]));
+            }
+        }
+        
+        int[][] intervalsOut = new int[stackLength][2];
+        stackLength--;
+        while(stackLength >= 0){
+            intervalsOut[stackLength][1] = intervalStack.pop();
+            intervalsOut[stackLength][0] = intervalStack.pop();
+            stackLength--;
+        }
+        return(intervalsOut);  
+    }
+}
